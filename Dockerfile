@@ -16,9 +16,7 @@ COPY requirements.txt .
 RUN pip3 install -r requirements.txt
 
 # copy over files last
-COPY /data ./data
-COPY /main ./main
-COPY screenshots /app/test
+COPY /problem-data-parser ./problem-data-parser
 
 # run the application
-CMD ["python3", "main/runner.py"]
+CMD ["python3", "problem-data-parser/runner.py"]
