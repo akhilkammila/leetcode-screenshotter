@@ -1,0 +1,6 @@
+__pycache__
+.vscode
+.DS_Store
+
+#login info
+leetcode_cookies.csv
