@@ -2,5 +2,8 @@ __pycache__
 .vscode
 .DS_Store
 
+#data
+screeshots
+
 #login info
 leetcode_cookies.csv
