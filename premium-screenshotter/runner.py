@@ -34,7 +34,7 @@ if __name__ == "__main__":
             link = row[2]
 
             full_name = number + ". " + problem_title
-            if full_name + '.png' in os.listdir('screenshots'):
+            if int(number) < 1100 or full_name + '.png' in os.listdir('screenshots'):
                 continue
 
             runner.solve_problem(link, full_name)
