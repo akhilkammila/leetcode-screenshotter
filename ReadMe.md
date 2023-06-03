@@ -1,3 +1,6 @@
+## This project contains screenshots of all leetcode problems – including premiums
+They are all in the screenshots folder, organized by number
+
 ## Personal Docker commands:
 
 Build data scraper:

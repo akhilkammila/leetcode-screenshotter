@@ -10,3 +10,5 @@ class ProblemRow:
     PREMIUM = "./div[2]/div/div/div/*[local-name() = 'svg']"
     ACCEPTANCE_RATE = "./div[4]/span"
     DIFFICULTY = "./div[5]/span"
+
+    EDITORIAL = "./div[3]/a"

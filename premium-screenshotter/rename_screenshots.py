@@ -4,6 +4,10 @@ Renames screenshots to be zero-padded by 3 digits
 
 import os
 
+"""
+Makes screenshots 1-999 have 3 digits
+so they are ordered properly on GitHub
+"""
 def rename_screenshots():
     i = 0
     for filename in os.listdir('screenshots/1-999'):

@@ -7,7 +7,7 @@ from PIL import Image
 from locators import SingleProblemPage
 from locators import LoginPage
 
-class Screenshotter(SeleniumBase):
+class ProblemScreenshotter(SeleniumBase):
     def __init__(self, waitTime=15):
         super().__init__(waitTime)
 

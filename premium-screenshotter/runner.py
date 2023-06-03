@@ -1,11 +1,11 @@
-from screenshotter import Screenshotter
+from problem_screenshotter import ProblemScreenshotter
 from debug_wrapper import DebugWrapper
 import csv
 import os
 
-class Runner:
+class ProblemScreenshotRunner:
     def __init__(self):
-        self.screenshotter = Screenshotter()
+        self.screenshotter = ProblemScreenshotter()
         self.screenshotter = DebugWrapper(self.screenshotter)
 
     def login(self):
@@ -16,8 +16,8 @@ class Runner:
         height = self.screenshotter.get_height()
         self.screenshotter.screenshot_problem(height, fileName)
 
-if __name__ == "__main__":
-    runner = Runner()
+def runProblemScreenshotter():
+    runner = ProblemScreenshotRunner()
     runner.login()
 
     # loop through each problem, and solve
@@ -39,4 +39,6 @@ if __name__ == "__main__":
 
             runner.solve_problem(link, full_name)
 
-    runner.solve_problem("https://leetcode.com/problems/minimum-number-of-operations-to-move-all-balls-to-each-box/", "Minimum Number of Operations to Move All Balls to Each Box")
+
+if __name__ == "__main__":
+    runProblemScreenshotter()
