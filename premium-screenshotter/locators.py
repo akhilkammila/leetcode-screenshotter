@@ -14,3 +14,7 @@ class SingleProblemPage:
     PROBLEM_2_XPATH = "//*[@id='qd-content']/div[1]/div/div/div/div[2]/div/div/div[2]"
     PROBLEM_3_XPATH = "//*[@id='qd-content']/div[1]/div/div/div/div[2]/div/div/div[3]"
     PROBLEM_4_XPATH = "//*[@id='qd-content']/div[1]/div/div/div/div[2]/div/div/div[4]"
+
+class EditorialPage:
+    EDITORIAL_1_XPATH = "//*[@id='qd-content']/div[1]/div/div/div/div[2]/div/div/div/div/div[1]"
+    EDITORIAL_2_XPATH = "//*[@id='qd-content']/div[1]/div/div/div/div[2]/div/div/div/div/div[2]/div[1]"
