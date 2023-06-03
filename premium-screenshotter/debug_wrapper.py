@@ -13,7 +13,8 @@ class DebugWrapper:
         if callable(original_method):
             wrap1 = self.time_screenshot_wrap(original_method)
             wrap2 = self.debug_error_wrap(wrap1)
-            return wrap2
+            wrap3 = self.retry_wrap(wrap2)
+            return wrap3
         
         return original_method
     
@@ -57,7 +58,7 @@ class DebugWrapper:
             try:
                 return method(*args, **kwards)
             except Exception as e:
-                time.sleep(1)
+                time.sleep(2)
                 return method(*args, **kwards)
         
         return wrapper

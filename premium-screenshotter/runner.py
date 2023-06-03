@@ -74,6 +74,7 @@ def runEditorialScreenshotter():
             if full_name + '.png' in os.listdir('screenshots'):
                 continue
 
+            print("solving " + full_name, flush=True)
             runner.solve_problem(link, full_name)
 
 if __name__ == "__main__":

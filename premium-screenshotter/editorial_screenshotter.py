@@ -9,7 +9,7 @@ from locators import LoginPage
 from locators import EditorialPage
 
 class EditorialScreenshotter(SeleniumBase):
-    def __init__(self, waitTime=15):
+    def __init__(self, waitTime=20):
         super().__init__(waitTime)
 
     def login(self):
@@ -32,10 +32,15 @@ class EditorialScreenshotter(SeleniumBase):
     
     def load_page(self, link):
         self.driver.get(link)
-        self.wait.until(EC.presence_of_element_located((By.XPATH, SingleProblemPage.EDITOR_XPATH)))
+        self.wait.until(EC.presence_of_element_located((By.XPATH, EditorialPage.EDITORIAL_1_XPATH)))
+        self.wait.until(EC.presence_of_element_located((By.XPATH, EditorialPage.EDITORIAL_2_XPATH)))
     
     def get_height(self):
+        # resize window and wait
         self.driver.set_window_size(1920,100000) #higher than the page could possibly be
+        self.wait.until(EC.presence_of_element_located((By.XPATH, EditorialPage.EDITORIAL_1_XPATH)))
+        self.wait.until(EC.presence_of_element_located((By.XPATH, EditorialPage.EDITORIAL_2_XPATH)))
+
         height = 0
         height += self.driver.find_element(By.XPATH, EditorialPage.EDITORIAL_1_XPATH).size["height"]
         height += self.driver.find_element(By.XPATH, EditorialPage.EDITORIAL_2_XPATH).size["height"]
