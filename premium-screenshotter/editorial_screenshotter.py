@@ -43,11 +43,11 @@ class EditorialScreenshotter(SeleniumBase):
         self.driver.set_window_size(1920, height + 500)
         return height
     
-    def screenshot_problem(self, height, fileName):
+    def screenshot_editorial(self, height, fileName):
         starting_div = self.driver.find_element(By.XPATH, EditorialPage.EDITORIAL_1_XPATH)
         width = starting_div.size["width"]
 
         left, top = starting_div.location["x"], starting_div.location["y"]
-        right, bottom = left + width, top + height
+        right, bottom = left + width, top + height + 100
 
         self.screenshot_with_boundaries(fileName + '.png', left, top, right, bottom)
