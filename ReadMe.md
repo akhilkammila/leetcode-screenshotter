@@ -1,9 +1,11 @@
-# Leetcode Screenshotter
+# Leetcode Screenshotter ![](https://img.shields.io/badge/license-MIT-brightgreen) ![](https://img.shields.io/badge/updated-June%204%2C%202023-brightgreen)
+
 Screenshots of Leetcode Editorials and Premium Problems
 
-### Table of Contents
-#### [Editorials](#editorials)
-#### [Premium Problems](#premium-problems)
+## Table of Contents
+- [Editorials](#editorials)
+- [Premium Problems](#premium-problems)
+- [About](#about)
 
 ## Editorials
 Leetcode Editorials are in-depth articles which explain how to approach and solve a problem. About 50% of problems have editorials. They are premium-only.
@@ -1462,3 +1464,46 @@ Open the below links in a new tab with CNTRL + Click or COMMAND + Click.
 #### [2689. Extract Kth Character From The Rope Tree](https://github.com/akhilkammila/leetcode-screenshotter/tree/main/problem-screenshots/2000-2999/2689.%20Extract%20Kth%20Character%20From%20The%20Rope%20Tree.png)
 #### [2702. Minimum Operations to Make Numbers Non-positive](https://github.com/akhilkammila/leetcode-screenshotter/tree/main/problem-screenshots/2000-2999/2702.%20Minimum%20Operations%20to%20Make%20Numbers%20Non-positive.png)
 #### [2714. Find Shortest Path with K Hops](https://github.com/akhilkammila/leetcode-screenshotter/tree/main/problem-screenshots/2000-2999/2714.%20Find%20Shortest%20Path%20with%20K%20Hops.png)
+
+## About
+[[back to top]](#leetcode-screenshotter)
+
+This project uses selenium to programmatically screenshot all editorials and problems.
+
+Please report any [Issues](https://github.com/akhilkammila/leetcode-screenshotter/issues), such as
+* Blurry images
+* Improperly cropped images
+* Problems that I skipped over
+
+Potential future improvements for the project include:
+* Screenshot the starting code for premium problems
+* Screenshot the editorials for multiple languages (C++, Java, Python) instead of just the default of C++
+* Make sure that the code in the editorials is fully shown (sometimes it is hidden by scroll)
+* Regular updates to include new problems
+
+I am done working on the project for now, but if this becomes popular and people start using it, I may do more. If you want a feature, open an Issue, and I may do it. Please reach out if you are interested in contributing.
+
+Note: \
+When creating issues, note that some problems that leetcode says have editorials, actually do not:
+* 145,Binary Tree Postorder Traversal,https://leetcode.com/problems/binary-tree-postorder-traversal/solution
+* 264,Ugly Number II,https://leetcode.com/problems/ugly-number-ii/solution/
+* 351,Android Unlock Patterns,https://leetcode.com/problems/android-unlock-patterns/solution
+* 459,Repeated Substring Pattern,https://leetcode.com/problems/repeated-substring-pattern/solution
+* 519,Random Flip Matrix,https://leetcode.com/problems/random-flip-matrix/solution
+* 564,Find the Closest Palindrome,https://leetcode.com/problems/find-the-closest-palindrome/solution
+* 661,Image Smoother,https://leetcode.com/problems/image-smoother/solution
+* 675,Cut Off Trees for Golf Event,https://leetcode.com/problems/cut-off-trees-for-golf-event/solution
+* 676,Implement Magic Dictionary,https://leetcode.com/problems/implement-magic-dictionary/solution
+* 711,Number of Distinct Islands II,https://leetcode.com/problems/number-of-distinct-islands-ii/solution
+* 730,Count Different Palindromic Subsequences,https://leetcode.com/problems/count-different-palindromic-subsequences/solution
+* 749,Contain Virus,https://leetcode.com/problems/contain-virus/solution
+* 762,Prime Number of Set Bits in Binary Representation,https://leetcode.com/problems/prime-number-of-set-bits-in-binary-representation/solution
+* 773,Sliding Puzzle,https://leetcode.com/problems/sliding-puzzle/solution
+* 779,K-th Symbol in Grammar,https://leetcode.com/problems/k-th-symbol-in-grammar/solution
+* 818,Race Car,https://leetcode.com/problems/race-car/solution
+* 840,Magic Squares In Grid,https://leetcode.com/problems/magic-squares-in-grid/solution
+* 861,Score After Flipping Matrix,https://leetcode.com/problems/score-after-flipping-matrix/solution
+* 874,Walking Robot Simulation,https://leetcode.com/problems/walking-robot-simulation/solution
+* 898,Bitwise ORs of Subarrays,https://leetcode.com/problems/bitwise-ors-of-subarrays/solution
+* 939,Minimum Area Rectangle,https://leetcode.com/problems/minimum-area-rectangle/solution
+* 992,Subarrays with K Different Integers,https://leetcode.com/problems/subarrays-with-k-different-integers/solution
