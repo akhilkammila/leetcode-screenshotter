@@ -1,3 +1,5 @@
+# Leetcode Screenshotter
+
 ## Leetcode Editorial Screenshots are under the [editorial-screenshots](https://github.com/akhilkammila/leetcode-screenshotter/tree/main/editorial-screenshots) folder
 Note that leetcode does not have editorials for every problem. About half the problems have editorials.
 
