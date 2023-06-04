@@ -1,7 +1,7 @@
-## Leetcode Editorial Screenshots are under the editorial-screenshots folder
+## Leetcode Editorial Screenshots are under the [editorial-screenshots](https://github.com/akhilkammila/leetcode-screenshotter/tree/main/editorial-screenshots) folder
 Note that leetcode does not have editorials for every problem. About half the problems have editorials.
 
-## Leetcode Problem Screenshots (including premium problems) are under the problem-screenshots folder
+## Leetcode Problem Screenshots (including premium problems) are under the [problem-screenshots](https://github.com/akhilkammila/leetcode-screenshotter/tree/main/problem-screenshots) folder
 
 ## About
 This project contains screenshots of all editorials and problems. Editorials are extremely helpful, and explain how to do each problem in multiple ways – but they are premium-only. Most problems are free, but some are premium-only.
