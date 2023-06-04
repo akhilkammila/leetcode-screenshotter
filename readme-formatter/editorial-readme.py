@@ -25,7 +25,7 @@ for row in rows[1:]:
     fullPath = base + subdir + "/" + imagePath
     
     # Make markdown line
-    markdownLine = "### [" + number + ". " + problem_title + "](" + fullPath + ")"
+    markdownLine = "#### [" + number + ". " + problem_title + "](" + fullPath + ")"
     markdownLines.append(markdownLine)
 
 # Write to readme
