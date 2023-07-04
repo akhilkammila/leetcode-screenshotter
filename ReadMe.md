@@ -8,8 +8,6 @@ Screenshots of Leetcode Editorials and Premium Problems
 - [About](#about)
 
 ## Editorials
-[[back to top]](#leetcode-screenshotter)
-
 Leetcode Editorials are in-depth articles which explain how to approach and solve a problem. About 50% of problems have editorials. They are premium-only.
 
 Open the below links in a new tab with CNTRL + Click or COMMAND + Click
@@ -1095,7 +1093,7 @@ Open the below links in a new tab with CNTRL + Click or COMMAND + Click
 #### [2551. Put Marbles in Bags](https://github.com/akhilkammila/leetcode-screenshotter/tree/main/editorial-screenshots/2000-2999/2551.%20Put%20Marbles%20in%20Bags.png)
 
 ## Premium Problems
-[[back to top]](#leetcode-screenshotter)
+[[back to top]](#leetcode-screenshotter--)
 
 About 10% of leetcode problem are premium-only.
 
@@ -1468,7 +1466,7 @@ Open the below links in a new tab with CNTRL + Click or COMMAND + Click.
 #### [2714. Find Shortest Path with K Hops](https://github.com/akhilkammila/leetcode-screenshotter/tree/main/problem-screenshots/2000-2999/2714.%20Find%20Shortest%20Path%20with%20K%20Hops.png)
 
 ## About
-[[back to top]](#leetcode-screenshotter)
+[[back to top]](#leetcode-screenshotter--)
 
 This project uses selenium to programmatically screenshot all editorials and problems.
 
