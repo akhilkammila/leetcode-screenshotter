@@ -8,6 +8,8 @@ Screenshots of Leetcode Editorials and Premium Problems
 - [About](#about)
 
 ## Editorials
+[[back to top]](#leetcode-screenshotter)
+
 Leetcode Editorials are in-depth articles which explain how to approach and solve a problem. About 50% of problems have editorials. They are premium-only.
 
 Open the below links in a new tab with CNTRL + Click or COMMAND + Click
