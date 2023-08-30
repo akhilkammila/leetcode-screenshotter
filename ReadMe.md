@@ -12,7 +12,7 @@ Leetcode Editorials are in-depth articles which explain how to approach and solv
 
 Open the below links in a new tab with CNTRL + Click or COMMAND + Click
 
-Editorial code is available under the editorial_code folder of the project (credit to raghavrambo007)
+Editorial code is available under the [editorial_code](editorial_code) folder of the project (credit to [@raghavrambo007](https://github.com/raghavrambo007))
 
 #### [1. Two Sum](https://github.com/akhilkammila/leetcode-screenshotter/tree/main/editorial-screenshots/1-999/001.%20Two%20Sum.png)
 #### [2. Add Two Numbers](https://github.com/akhilkammila/leetcode-screenshotter/tree/main/editorial-screenshots/1-999/002.%20Add%20Two%20Numbers.png)
