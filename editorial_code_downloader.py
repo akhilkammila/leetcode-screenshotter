@@ -52,7 +52,7 @@ def getExt(lang):
     return ''
 
 def getName(i, lang):
-  return lang+'-'+str(i)+'.'+getExt(lang)
+  return lang+'-'+str(i)+getExt(lang)
 
 
 
