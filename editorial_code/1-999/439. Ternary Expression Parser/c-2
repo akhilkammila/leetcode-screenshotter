@@ -1,0 +1,36 @@
+char * parseTernary(char * expression){
+
+    // Initialize a stack
+    char stack[10001];
+    int top = -1;
+    int i = strlen(expression) - 1;
+
+    // Traverse the expression from right to left
+    while (i >= 0) {
+
+        // Current character
+        char curr = expression[i];
+        
+        // Push every T, F, and digit on the stack
+        if (curr >= '0' && curr <= '9' || curr == 'T' || curr == 'F') {
+            stack[++top] = curr;
+        }
+        
+        // As soon as we encounter ?, 
+        // replace top two elements of the stack with one
+        else if (curr == '?') {
+            char onTrue = stack[top--];
+            char onFalse = stack[top--];
+            stack[++top] = (expression[--i] == 'T') ? onTrue : onFalse;
+        }
+        
+        // Go to the previous character
+        i--;
+    }
+
+    // Return the final character. 
+    char *result = (char *)malloc(2 * sizeof(char));
+    result[0] = stack[top];
+    result[1] = '\0';
+    return result;
+}

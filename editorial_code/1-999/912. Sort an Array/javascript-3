@@ -1,0 +1,66 @@
+var sortArray = function(nums) {
+    // Counting sort function for each place value digit.
+    let countingSort = placeValue => {
+        let mapDigits = {};
+        // Store the respective number based on it's digit.
+        nums.forEach(val => {
+            let digit = Math.floor(Math.abs(val) / placeValue);
+            digit = digit % 10;
+            
+            if (mapDigits[digit] == undefined) {
+                mapDigits[digit] = [];
+            }
+            mapDigits[digit].push(val);
+        });
+
+        // Overwrite 'nums' in sorted order of current place digits.
+        let index = 0;
+        for (let digit = 0; digit < 10; ++digit) {
+            if (mapDigits[digit] == undefined) { 
+                continue; 
+            }
+            mapDigits[digit].forEach(val => {
+                nums[index] = val;
+                index++;
+            });
+        }
+    }
+    
+    // Radix sort function
+    let radixSort = () => {
+        // Find the absolute maximum element to find max number of digits.
+        let maxElement = nums[0];
+        nums.forEach(val => {
+            maxElement = Math.max(Math.abs(val), maxElement);
+        });
+        let maxDigits = 0;
+        while (maxElement > 0) {
+            maxDigits += 1;
+            maxElement /= 10;
+        }
+
+        // Radix sort, least significant digit place to most significant.
+        let placeValue = 1;
+        for (let digit = 0; digit < maxDigits; ++digit) {
+            countingSort(placeValue);
+            placeValue *= 10;
+        }
+
+        // Seperate out negatives and reverse them. 
+        let negatives = [];
+        let positives = [];
+        nums.forEach(val => {
+            if (val < 0) {
+                negatives.push(val);
+            } else {
+                positives.push(val);
+            }
+        });
+        negatives.reverse();
+        // Final 'nums' will be 'negative' elements, then 'positive' elements.
+        nums = [...negatives, ...positives];
+    }
+    
+    radixSort(nums);
+    return nums;
+};

@@ -1,0 +1,32 @@
+var validWordSquare = function(words) {
+    let cols = 0;
+    let rows = words.length;
+    let newWords = [];
+    
+    for (let word of words) {
+        cols = Math.max(cols, word.length);
+    }
+
+    // If the first row doesn't have maximum number of characters, or
+    // the number of rows is not equal to columns it can't form a square.
+    if (cols != words[0].length || rows != cols) {
+        return false;
+    }
+
+    for (let col = 0; col < cols; ++col) {
+        let newWord = "";
+        // Iterate on each character of column 'col'.
+        for (let row = 0; row < rows; ++row) {
+            // If the current row's word's size is less than the column number it means this column is empty,
+            // or, if there is a character present then use it to make the new word.
+            if (col < words[row].length) {
+                newWord += words[row][col];
+            }
+        }
+        // Push the new word of column 'col' in the list.
+        newWords.push(newWord);
+    }
+
+    // Check if all row's words match with the respective column's words.
+    return words.every((value, index) => value === newWords[index]);
+};

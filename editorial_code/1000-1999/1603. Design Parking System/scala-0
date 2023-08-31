@@ -1,0 +1,17 @@
+class ParkingSystem(_big: Int, _medium: Int, _small: Int) {
+
+    // Number of empty slots for each type of car
+    var empty: Array[Int] = Array(_big, _medium, _small)
+
+    def addCar(carType: Int): Boolean = {
+
+        // If space is available, allocate and return True
+        if (this.empty(carType - 1) > 0) {
+            this.empty(carType - 1) -= 1
+            return true
+        }
+
+        // Else, return False
+        return false
+    }
+}

@@ -1,0 +1,48 @@
+class Solution {
+  int minimumDeleteSum(String s1, String s2) {
+    // Make sure s2 is smaller string
+    if (s1.length < s2.length) {
+      return minimumDeleteSum(s2, s1);
+    }
+
+    // Case for empty s1
+    final m = s1.length;
+    final n = s2.length;
+    var currRow = List<int>.filled(n + 1, 0);
+    for (var j = 1; j <= n; j++) {
+      currRow[j] = currRow[j - 1] + s2.codeUnitAt(j - 1);
+    }
+
+    // Compute answer row-by-row
+    for (var i = 1; i <= m; i++) {
+      var diag = currRow[0];
+      currRow[0] += s1.codeUnitAt(i - 1);
+
+      for (var j = 1; j <= n; j++) {
+        var answer = 0;
+
+        // If characters are the same, the answer is top-left-diagonal value
+        if (s1[i - 1] == s2[j - 1]) {
+          answer = diag;
+        }
+
+        // Otherwise, the answer is minimum of top and left values with
+        // deleted character's ASCII value
+        else {
+          answer = min(
+            s1.codeUnitAt(i - 1) + currRow[j],
+            s2.codeUnitAt(j - 1) + currRow[j - 1],
+          );
+        }
+
+        // Before overwriting currRow[j] with answer, save it in diag
+        // for the next column
+        diag = currRow[j];
+        currRow[j] = answer;
+      }
+    }
+
+    // Return the answer
+    return currRow[n];
+  }
+}

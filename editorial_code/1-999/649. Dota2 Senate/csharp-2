@@ -1,0 +1,67 @@
+public class Solution {
+    public string PredictPartyVictory(string senate) {
+
+        // Number of Senators
+        int n = senate.Length;
+
+        // To mark Banned Senators
+        bool[] banned = new bool[n];
+
+        // List of indices of Eligible Radiant and Dire Senators
+        List<int> rIndices = new List<int>();
+        List<int> dIndices = new List<int>();
+        for (int i = 0; i < n; i++) {
+            if (senate[i] == 'R')
+                rIndices.Add(i);
+            else
+                dIndices.Add(i);
+        }
+
+        // Ban the senator of "indices" immediate next to "startAt"
+        Action<List<int>, int> ban = (indices, startAt) => {
+            // Find the index of "index of senator to ban" using Binary Search
+            int temp = indices.BinarySearch(startAt);
+
+            // If startAt is more than the last index,
+            // then start from the beginning. Ban the first senator
+            if (temp < 0) {
+                temp = ~temp;
+                if (temp == indices.Count) {
+                    banned[indices[0]] = true;
+                    indices.RemoveAt(0);
+                }
+
+                // Else, Ban the senator at the index
+                else {
+                    banned[indices[temp]] = true;
+                    indices.RemoveAt(temp);
+                }
+            }
+
+            // Else, Ban the senator at the index
+            else {
+                banned[indices[temp]] = true;
+                indices.RemoveAt(temp);
+            }
+        };
+
+        // Turn of Senator at this Index
+        int turn = 0;
+
+        // While both parties have at least one senator
+        while (rIndices.Count > 0 && dIndices.Count > 0) {
+
+            if (!banned[turn]) {
+                if (senate[turn] == 'R')
+                    ban(dIndices, turn);
+                else
+                    ban(rIndices, turn);
+            }
+
+            turn = (turn + 1) % n;
+        }
+
+        // Return the party with at least one senator
+        return dIndices.Count == 0 ? "Radiant" : "Dire";
+    }
+}

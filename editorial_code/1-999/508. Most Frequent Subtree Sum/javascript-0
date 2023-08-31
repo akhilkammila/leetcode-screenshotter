@@ -1,0 +1,42 @@
+let sumFreq = {};
+let maxFreq = 0;
+
+let findTreeSum = (root) => {
+    if (!root) {
+        return 0;
+    }
+    // Current root's tree's sum.
+    return root.val + findTreeSum(root.left) + findTreeSum(root.right);
+}
+
+let preOrderTraversal = (root) => {
+    if (!root) {
+        return;
+    }
+
+    // Find current node's tree's sum.
+    let currSum = findTreeSum(root);
+    sumFreq[currSum] = (sumFreq[currSum] ?? 0) + 1;
+    maxFreq = Math.max(maxFreq, sumFreq[currSum]);
+
+    // Iterate on left and right subtrees and find their sums.
+    preOrderTraversal(root.left);
+    preOrderTraversal(root.right);
+}
+
+let findFrequentTreeSum = function(root) {
+    sumFreq = {};
+    maxFreq = 0;
+    
+    // Traverse on all nodes one by one, and find it's tree's sum.
+    preOrderTraversal(root);
+    
+    let maxFreqSums = [];
+    for (let sum in sumFreq) {
+        if (sumFreq[sum] == maxFreq) {
+            maxFreqSums.push(sum);
+        }
+    }
+
+    return maxFreqSums;
+};

@@ -1,0 +1,44 @@
+func minimumDeleteSum(s1 string, s2 string) int {
+    
+    // Make sure s2 is smaller string
+    if len(s1) < len(s2) {
+        return minimumDeleteSum(s2, s1)
+    }
+    
+    // Case for empty s1
+    m, n := len(s1), len(s2)
+    currRow := make([]int, n + 1)
+    for j := 1; j <= n; j++ {
+        currRow[j] = currRow[j - 1] + int(s2[j - 1])
+    }
+    
+    // Compute answer row-by-row
+    for i := 1; i <= m; i++ {
+        
+        diag := currRow[0]
+        currRow[0] += int(s1[i - 1])
+        
+        for j := 1; j <= n; j++ {
+
+            var answer int
+            
+            // If characters are the same, the answer is top-left-diagonal value
+            if s1[i - 1] == s2[j - 1] {
+                answer = diag
+            } else {
+                answer = int(math.Min(
+                    float64(s1[i - 1]) + float64(currRow[j]),
+                    float64(s2[j - 1]) + float64(currRow[j - 1]),
+                ))
+            }
+            
+            // Before overwriting currRow[j] with answer, save it in diag
+            // for the next column
+            diag = currRow[j]
+            currRow[j] = answer
+        }
+    }
+    
+    // Return the answer
+    return currRow[n]
+}

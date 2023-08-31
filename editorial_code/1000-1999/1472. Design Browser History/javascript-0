@@ -1,0 +1,33 @@
+var BrowserHistory = function(homepage) {
+    this.history = [], this.future = [];
+    // 'homepage' is the first visited URL.
+    this.current = homepage;
+};
+
+BrowserHistory.prototype.visit = function(url) {
+    // Push 'current' in 'history' stack and mark 'url' as 'current'.
+    this.history.push(this.current);
+    this.current = url;
+    // We need to delete all entries from 'future' stack.
+    this.future = [];
+};
+
+BrowserHistory.prototype.back = function(steps) {
+    // Pop elements from 'history' stack, and push elements in 'future' stack.
+    while(steps > 0 && this.history.length != 0) {
+        this.future.push(this.current);
+        this.current = this.history.pop();
+        steps--;
+    }
+    return this.current;
+};
+
+BrowserHistory.prototype.forward = function(steps) {
+    // Pop elements from 'future' stack, and push elements in 'history' stack.
+    while(steps > 0 && this.future.length != 0) {
+        this.history.push(this.current);
+        this.current = this.future.pop();
+        steps--;
+    }
+    return this.current;
+};

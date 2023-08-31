@@ -63,7 +63,7 @@ with open(PROBLEMS_CSV, 'r') as file:
   rows = list(csv_reader)
 
   # Access specific rows by index
-  for row in rows[1122:]:
+  for row in rows[1:]:
     number = row[0]
     problem_title = row[1]
     titleSlug = row[2].split('/')[-2]
@@ -133,7 +133,6 @@ with open(PROBLEMS_CSV, 'r') as file:
       with open(csv_file_path, "a", newline="") as file:
         csv_writer = csv.writer(file)
         csv_writer.writerow(row)
-
 
 
 

@@ -1,0 +1,54 @@
+func predictPartyVictory(senate string) string {
+    
+    // Number of Senators of each party
+    rCount, dCount := 0, 0
+
+    // Floating Ban Count
+    dFloatingBan, rFloatingBan := 0, 0
+
+    // Queue of Senators
+    q := []byte{}
+    for i := 0; i < len(senate); i++ {
+        q = append(q, senate[i])
+        if senate[i] == 'R' {
+            rCount++
+        } else {
+            dCount++
+        }
+    }
+
+    // While any party has eligible Senators
+    for rCount > 0 && dCount > 0 {
+
+        // Pop the senator with turn
+        curr := q[0]
+        q = q[1:]
+
+        // If eligible, float the ban on the other party, enqueue again.
+        // If not, decrement the floating ban and count of the party.
+        if curr == 'D' {
+            if dFloatingBan > 0 {
+                dFloatingBan--
+                dCount--
+            } else {
+                rFloatingBan++
+                q = append(q, 'D')
+            }
+        } else {
+            if rFloatingBan > 0 {
+                rFloatingBan--
+                rCount--
+            } else {
+                dFloatingBan++
+                q = append(q, 'R')
+            }
+        }
+    }
+
+    // Return the party with eligible Senators
+    if rCount > 0 {
+        return "Radiant"
+    } else {
+        return "Dire"
+    }
+}

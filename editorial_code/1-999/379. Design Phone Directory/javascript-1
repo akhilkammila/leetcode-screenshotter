@@ -1,0 +1,40 @@
+var PhoneDirectory = function(maxNumbers) {
+    // Queue to store all available slots.
+    this.slotsAvailableQueue = new Queue();
+
+    // Array to mark if a slot is available.
+    this.isSlotAvailable = new Array(maxNumbers).fill(true);
+
+    for (let i = 0; i < maxNumbers; ++i) {
+        this.slotsAvailableQueue.enqueue(i);
+    }
+};
+
+PhoneDirectory.prototype.get = function() {
+    // If the queue is empty, it means no slot is available.
+    if (this.slotsAvailableQueue.isEmpty()) {
+        return -1;
+    }
+
+    // Otherwise, remove the first element from the queue,
+    // mark that slot as not available and return the slot.
+    const slot = this.slotsAvailableQueue.dequeue();
+    this.isSlotAvailable[slot] = false;
+    return slot;
+};
+
+PhoneDirectory.prototype.check = function(number) {
+    // Check if the slot at index 'number' is available or not.
+    return this.isSlotAvailable[number];
+};
+
+PhoneDirectory.prototype.release = function(number) {
+    // If the slot is already present in the queue, we don't do anything.
+    if (this.isSlotAvailable[number]) {
+      return;
+    }
+
+    // Otherwise, mark the slot 'number' as available and enqueue it back to the queue.
+    this.slotsAvailableQueue.enqueue(number);
+    this.isSlotAvailable[number] = true;
+};

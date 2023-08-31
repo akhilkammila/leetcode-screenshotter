@@ -1,0 +1,27 @@
+public class Solution {
+    public string ParseTernary(string expression) {
+        
+        int i = 0;
+        for ( ; i < expression.Length; ) {
+            
+            if (expression[i] != 'T' && expression[i] != 'F'
+            || i == expression.Length - 1 || expression[i + 1] == ':') {
+                break;
+            }
+            if (expression[i] == 'T') {
+                i += 2;
+            } else {
+                int count;
+                for (count = 1, i += 2; count != 0; i++) {
+                    if (expression[i] == ':') {
+                        count--;
+                    } else if (expression[i] == '?') {
+                        count++;
+                    }
+                }
+            }
+        }
+
+        return expression.Substring(i, 1);
+    }
+}

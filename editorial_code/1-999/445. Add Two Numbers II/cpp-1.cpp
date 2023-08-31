@@ -1,42 +1,35 @@
 class Solution {
 public:
-    ListNode* reverseList(ListNode* head) {
-        ListNode* prev = nullptr;
-        ListNode* temp;
-        while (head) {
-            // Keep the next node.
-             temp = head->next;
-            // reverse the link
-            head->next = prev;
-            // Update the previous node and the current node.
-            prev = head;
-            head = temp;
-        }
-        return prev;
-    }
-
     ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
-        ListNode* r1 = reverseList(l1);
-        ListNode* r2 = reverseList(l2);
+        stack<int> s1, s2;
 
-        int totalSum = 0;
-        int carry = 0;
+        while (l1 != nullptr) {
+            s1.push(l1->val);
+            l1 = l1->next;
+        }
+
+        while (l2 != nullptr) {
+            s2.push(l2->val);
+            l2 = l2->next;
+        }
+
+        int totalSum = 0, carry = 0;
         ListNode* ans = new ListNode();
-        while (r1 || r2) {
-            if (r1) {
-                totalSum += r1->val;
-                r1 = r1->next;
+        while (!s1.empty() || !s2.empty()) {
+            if (!s1.empty()) {
+                totalSum += s1.top();
+                s1.pop();
             }
-            if (r2) {
-                totalSum += r2->val;
-                r2 = r2->next;
+            if (!s2.empty()) {
+                totalSum += s2.top();
+                s2.pop();
             }
 
             ans->val = totalSum % 10;
             carry = totalSum / 10;
-            ListNode* head = new ListNode(carry);
-            head->next = ans;
-            ans = head;
+            ListNode* newNode = new ListNode(carry);
+            newNode->next = ans;
+            ans = newNode;
             totalSum = carry;
         }
 

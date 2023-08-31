@@ -1,0 +1,63 @@
+object Solution {
+    def predictPartyVictory(senate: String): String = {
+
+        // Number of Senators
+        val n = senate.length
+
+        // To mark Banned Senators
+        val banned = Array.fill(n)(false)
+
+        // List of indices of Eligible Radiant and Dire Senators
+        var rIndices = List[Int]()
+        var dIndices = List[Int]()
+        for (i <- 0 until n) {
+            if (senate(i) == 'R') {
+                rIndices = rIndices :+ i
+            } else {
+                dIndices = dIndices :+ i
+            }
+        }
+
+        // Ban the senator of "indices" immediate next to "startAt"
+        def ban(indices: List[Int], startAt: Int): List[Int] = {
+            // Find the index of "index of senator to ban" using Binary Search
+            val temp = indices.indexWhere(_ >= startAt)
+
+            // If startAt is more than the last index,
+            // then start from the beginning. Ban the first senator
+            if (temp == -1) {
+                banned(indices(0)) = true
+                indices.tail
+            }
+
+            // Else, Ban the senator at the index
+            else {
+                banned(indices(temp)) = true
+                indices.take(temp) ++ indices.drop(temp + 1)
+            }
+        }
+
+        // Turn of Senator at this Index
+        var turn = 0
+
+        // While both parties have at least one senator
+        while (!rIndices.isEmpty && !dIndices.isEmpty) {
+            if (!banned(turn)) {
+                if (senate(turn) == 'R') {
+                    dIndices = ban(dIndices, turn)
+                } else {
+                    rIndices = ban(rIndices, turn)
+                }
+            }
+
+            turn = (turn + 1) % n
+        }
+
+        // Return the party with at least one senator
+        if (dIndices.isEmpty) {
+            "Radiant"
+        } else {
+            "Dire"
+        }
+    }
+}

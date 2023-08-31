@@ -1,0 +1,58 @@
+func predictPartyVictory(senate string) string {
+
+    // Number of Senators
+    n := len(senate)
+
+    // To mark Banned Senators
+    banned := make([]bool, n)
+
+    // List of indices of Eligible Radiant and Dire Senators
+    rIndices := []int{}
+    dIndices := []int{}
+    for i := 0; i < n; i++ {
+        if senate[i] == 'R' {
+            rIndices = append(rIndices, i)
+        } else {
+            dIndices = append(dIndices, i)
+        }
+    }
+
+    // Ban the senator of "indices" immediate next to "startAt"
+    ban := func(indices *[]int, startAt int) {
+        // Find the index of "index of senator to ban" using Binary Search
+        temp := sort.SearchInts(*indices, startAt)
+
+        // If startAt is more than the last index,
+        // then start from the beginning. Ban the first senator
+        if temp == len(*indices) {
+            banned[(*indices)[0]] = true
+            *indices = (*indices)[1:]
+        } else {
+            banned[(*indices)[temp]] = true
+            *indices = append((*indices)[:temp], (*indices)[temp+1:]...)
+        }
+    }
+
+    // Turn of Senator at this Index
+    turn := 0
+
+    // While both parties have at least one senator
+    for len(rIndices) > 0 && len(dIndices) > 0 {
+        if !banned[turn] {
+            if senate[turn] == 'R' {
+                ban(&dIndices, turn)
+            } else {
+                ban(&rIndices, turn)
+            }
+        }
+
+        turn = (turn + 1) % n
+    }
+
+    // Return the party with at least one senator
+    if len(dIndices) == 0 {
+        return "Radiant"
+    } else {
+        return "Dire"
+    }
+}

@@ -1,0 +1,13 @@
+int findNumbers(int* nums, int numsSize) {
+    // Counter to count the number of even digit integers
+    int evenDigitCount = 0;
+
+    for (int i = 0; i < numsSize; i++) {
+        // Convert num to string and find its length
+        int length = snprintf(NULL, 0, "%d", nums[i]);
+        if (length % 2 == 0)
+            evenDigitCount++;
+    }
+
+    return evenDigitCount;
+}

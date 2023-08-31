@@ -1,0 +1,40 @@
+class DLLNode {
+    constructor(url) {
+        this.data = url;
+        this.prev = null;
+        this.next = null;
+    }
+};
+
+var BrowserHistory = function(homepage) {
+    // 'homepage' is the first visited URL.
+    this.linkedListHead = new DLLNode(homepage);
+    this.current = this.linkedListHead;
+};
+
+BrowserHistory.prototype.visit = function(url) {
+    // Insert new node 'url' in the right of current node.
+    let newNode = new DLLNode(url);
+    this.current.next = newNode;
+    newNode.prev = this.current;
+    // Make this new node as current node now.
+    this.current = newNode;
+};
+
+BrowserHistory.prototype.back = function(steps) {
+    // Move 'current' pointer in left direction.
+    while (steps > 0 && this.current.prev != null) {
+        this.current = this.current.prev;
+        steps--;
+    }
+    return this.current.data;
+};
+
+BrowserHistory.prototype.forward = function(steps) {
+    // Move 'current' pointer in right direction.
+    while (steps > 0 && this.current.next != null) {
+        this.current = this.current.next;
+        steps--;
+    }
+    return this.current.data;
+};

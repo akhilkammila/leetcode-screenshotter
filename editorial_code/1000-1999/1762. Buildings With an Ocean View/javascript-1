@@ -1,0 +1,27 @@
+let findBuildings = function(heights) {
+    let n = heights.length;
+    let answer = [];
+
+    // Monotonically decreasing stack.
+    let stack = [];
+
+    for (let current = n - 1; current >= 0; --current) {
+
+        // If the building to the right is smaller, we can pop it.
+        while (stack.length && heights[stack[stack.length - 1]] < heights[current]) {
+            stack.pop();
+        }
+
+        // If the stack is empty, it means there is no building to the right 
+        // that can block the view of the current building.
+        if (stack.length == 0) { 
+            answer.push(current);
+        }
+
+        //  Push the current building in the stack.
+        stack.push(current);
+    }
+
+    answer.reverse();
+    return answer;
+};

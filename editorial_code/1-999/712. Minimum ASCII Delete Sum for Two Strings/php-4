@@ -1,0 +1,51 @@
+class Solution {
+    function minimumDeleteSum($s1, $s2) {
+
+        // Make sure s2 is smaller string
+        if (strlen($s1) < strlen($s2)) {
+            return $this->minimumDeleteSum($s2, $s1);
+        }
+
+        // Case for empty s1
+        $m = strlen($s1);
+        $n = strlen($s2);
+        $currRow = array_fill(0, $n + 1, 0);
+        for ($j = 1; $j <= $n; $j++) {
+            $currRow[$j] = $currRow[$j - 1] + ord($s2[$j - 1]);
+        }
+
+        // Compute answer row-by-row
+        for ($i = 1; $i <= $m; $i++) {
+
+            $diag = $currRow[0];
+            $currRow[0] += ord($s1[$i - 1]);
+
+            for ($j = 1; $j <= $n; $j++) {
+
+                $answer = 0;
+
+                // If characters are the same, the answer is top-left-diagonal value
+                if ($s1[$i - 1] == $s2[$j - 1]) {
+                    $answer = $diag;
+                }
+
+                // Otherwise, the answer is minimum of top and left values with
+                // deleted character's ASCII value
+                else {
+                    $answer = min(
+                        ord($s1[$i - 1]) + $currRow[$j],
+                        ord($s2[$j - 1]) + $currRow[$j - 1]
+                    );
+                }
+
+                // Before overwriting currRow[j] with answer, save it in diag
+                // for the next column
+                $diag = $currRow[$j];
+                $currRow[$j] = $answer;
+            }
+        }
+
+        // Return the answer
+        return $currRow[$n];
+    }
+}

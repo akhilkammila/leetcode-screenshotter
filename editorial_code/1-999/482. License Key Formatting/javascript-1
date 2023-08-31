@@ -1,0 +1,46 @@
+var licenseKeyFormatting = function(s, k) {
+        let totalChars = 0;
+        for (let i = 0; i < s.length; i++) {
+            if (s.charAt(i) != '-') {
+                totalChars++;
+            }
+        }
+        let sizeOfFirstGroup = (totalChars % k);
+        if (sizeOfFirstGroup == 0) {
+            sizeOfFirstGroup = k;
+        }
+        let ans = "";
+        let i = 0;
+        let count = 0;
+        
+        while (i < s.length) {
+            if (count == sizeOfFirstGroup) {
+                count = 0;
+                break;
+            }
+            if (s.charAt(i) != '-') {
+                count++;
+                ans += s.charAt(i).toUpperCase();
+            }
+            i++;
+        }
+        /* This case will only appear if value of k is greater than total number 
+           of alphanumeric characters in string s */
+        if(i >= s.length) {
+            return ans;
+        }
+        ans += ('-');
+        while (i < s.length) {
+            if (s.charAt(i) != '-') {
+                /* Whenever count is equal to k, we put a '-' after each group */
+                if (count == k) {
+                    ans += ('-');
+                    count = 0;
+                }
+                ans += s.charAt(i).toUpperCase();
+                count++;
+            }
+            i++;
+        }
+        return ans;
+}

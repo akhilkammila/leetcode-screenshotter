@@ -1,0 +1,67 @@
+impl Solution {
+    pub fn predict_party_victory(senate: String) -> String {
+        // Sentae Char Array
+        let mut senate_array: Vec<char> = senate.chars().collect();
+
+        // Count of Each Type of Senator to check for Winner
+        let mut r_count = senate_array.iter().filter(|&c| *c == 'R').count();
+        let mut d_count = senate_array.len() - r_count;
+
+        // Ban the candidate "to_ban", immediate next to "start_at"
+        // If have to loop around, then it means next turn will be of
+        // senator at same index. Returns loop around boolean
+        fn ban(to_ban: char, start_at: usize, senate_array: &mut Vec<char>) -> bool {
+            let mut loop_around = false;
+            let mut pointer = start_at;
+
+            while true {
+                if pointer == 0 {
+                    loop_around = true;
+                }
+                if senate_array[pointer] == to_ban {
+                    senate_array.remove(pointer);
+                    return loop_around;
+                }
+                pointer = (pointer + 1) % senate_array.len();
+            }
+
+            loop_around
+        }
+
+        // Turn of Senator at this index
+        let mut turn = 0;
+
+        // While No Winner
+        while r_count > 0 && d_count > 0 {
+
+            // Ban the next opponent, starting at one index ahead
+            // Taking MOD to loop around.
+            // If index of banned senator is before current index,
+            // then we need to decrement turn by 1, as we have removed
+            // a senator from list
+            if senate_array[turn] == 'R' {
+                let banned_senator_before = ban('D', (turn + 1) % senate_array.len(), &mut senate_array);
+                d_count -= 1;
+                if banned_senator_before {
+                    turn -= 1;
+                }
+            } else {
+                let banned_senator_before = ban('R', (turn + 1) % senate_array.len(), &mut senate_array);
+                r_count -= 1;
+                if banned_senator_before {
+                    turn -= 1;
+                }
+            }
+
+            // Increment turn by 1
+            turn = (turn + 1) % senate_array.len();
+        }
+
+        // Return Winner depending on count
+        if d_count == 0 {
+            "Radiant".to_string()
+        } else {
+            "Dire".to_string()
+        }   
+    }
+}

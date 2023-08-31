@@ -1,0 +1,63 @@
+impl Solution {
+    pub fn predict_party_victory(senate: String) -> String {
+
+        // Number of Senators
+        let n = senate.len();
+
+        // To mark Banned Senators
+        let mut banned = vec![false; n];
+
+        // List of indices of Eligible Radiant and Dire Senators
+        let mut r_indices = Vec::new();
+        let mut d_indices = Vec::new();
+        for i in 0..n {
+            if senate.chars().nth(i).unwrap() == 'R' {
+                r_indices.push(i);
+            } else {
+                d_indices.push(i);
+            }
+        }
+
+        // Ban the senator of "indices" immediate next to "startAt"
+        fn ban(indices: &mut Vec<usize>, start_at: usize, banned: &mut Vec<bool>) {
+            // Find the index of "index of senator to ban" using Binary Search
+            let temp = indices.binary_search(&start_at).unwrap_or_else(|x| x);
+
+            // If startAt is more than the last index,
+            // then start from the beginning. Ban the first senator
+            if temp == indices.len() {
+                banned[indices[0]] = true;
+                indices.remove(0);
+            }
+
+            // Else, Ban the senator at the index
+            else {
+                banned[indices[temp]] = true;
+                indices.remove(temp);
+            }
+        }
+
+        // Turn of Senator at this Index
+        let mut turn = 0;
+
+        // While both parties have at least one senator
+        while !r_indices.is_empty() && !d_indices.is_empty() {
+            if !banned[turn] {
+                if senate.chars().nth(turn).unwrap() == 'R' {
+                    ban(&mut d_indices, turn, &mut banned);
+                } else {
+                    ban(&mut r_indices, turn, &mut banned);
+                }
+            }
+
+            turn = (turn + 1) % n;
+        }
+
+        // Return the party with at least one senator
+        if d_indices.is_empty() {
+            "Radiant".to_string()
+        } else {
+            "Dire".to_string()
+        }
+    }
+}

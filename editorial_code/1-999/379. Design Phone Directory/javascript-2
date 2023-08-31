@@ -1,0 +1,26 @@
+var PhoneDirectory = function(maxNumbers) {
+    // Hash set to store all available slots.
+    this.slotsAvailable = new Set(Array.from({ length: maxNumbers }, (_, i) => i));
+};
+
+PhoneDirectory.prototype.get = function() {
+    // If the hash set is empty, it means no slot is available.
+    if (this.slotsAvailable.size === 0) {
+        return -1;
+    }
+
+    // Otherwise, remove and return the first element from the hash set.
+    const slot = this.slotsAvailable.values().next().value;
+    this.slotsAvailable.delete(slot);
+    return slot;
+};
+
+PhoneDirectory.prototype.check = function(number) {
+    // Check if the slot at index 'number' is available or not.
+    return this.slotsAvailable.has(number);
+};
+
+PhoneDirectory.prototype.release = function(number) {
+    // Mark the slot 'number' as available.
+    this.slotsAvailable.add(number);
+};

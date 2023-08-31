@@ -1,0 +1,28 @@
+typedef struct {
+    // Number of empty slots for each type of car
+    int empty[3];
+} ParkingSystem;
+
+ParkingSystem* parkingSystemCreate(int big, int medium, int small) {
+    ParkingSystem* obj = (ParkingSystem*) malloc(sizeof(ParkingSystem));
+    obj->empty[0] = big;
+    obj->empty[1] = medium;
+    obj->empty[2] = small;
+    return obj;
+}
+
+bool parkingSystemAddCar(ParkingSystem* obj, int carType) {
+
+    // If space is available, allocate and return True
+    if (obj->empty[carType - 1] > 0) {
+        obj->empty[carType - 1]--;
+        return true;
+    }
+
+    // Else, return False
+    return false;
+}
+
+void parkingSystemFree(ParkingSystem* obj) {
+    free(obj);
+}

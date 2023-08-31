@@ -1,0 +1,51 @@
+impl Solution {
+    pub fn minimum_delete_sum(s1: String, s2: String) -> i32 {
+        
+        // Make sure s2 is smaller string
+        if s1.len() < s2.len() {
+            return Solution::minimum_delete_sum(s2, s1);
+        }
+        
+        // Case for empty s1
+        let m = s1.len();
+        let n = s2.len();
+        let mut curr_row = vec![0; n + 1];
+        for j in 1..=n {
+            curr_row[j] = curr_row[j - 1] + s2.as_bytes()[j - 1] as i32;
+        }
+        
+        // Compute answer row-by-row
+        for i in 1..=m {
+            
+            let mut diag = curr_row[0];
+            curr_row[0] += s1.as_bytes()[i - 1] as i32;
+            
+            for j in 1..=n {
+
+                let mut answer = 0;
+                
+                // If characters are the same, the answer is top-left-diagonal value
+                if s1.as_bytes()[i - 1] == s2.as_bytes()[j - 1] {
+                    answer = diag;
+                }
+                
+                // Otherwise, the answer is minimum of top and left values with
+                // deleted character's ASCII value
+                else {
+                    answer = std::cmp::min(
+                        s1.as_bytes()[i - 1] as i32 + curr_row[j],
+                        s2.as_bytes()[j - 1] as i32 + curr_row[j - 1]
+                    );
+                }
+                
+                // Before overwriting curr_row[j] with answer, save it in diag
+                // for the next column
+                diag = curr_row[j];
+                curr_row[j] = answer;
+            }
+        }
+        
+        // Return the answer
+        return curr_row[n];
+    }
+}

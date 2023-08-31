@@ -1,0 +1,38 @@
+let thirdMax = function(nums) {
+    // Three variables to store maxiumum three numbers till now.
+    let firstMax = Number.MIN_SAFE_INTEGER;
+    let secondMax = Number.MIN_SAFE_INTEGER;
+    let thirdMax = Number.MIN_SAFE_INTEGER;
+
+    for (let index in nums) {
+        let num = nums[index];
+        
+        // This number is already used once, thus we skip it.
+        if (firstMax == num || secondMax == num || thirdMax == num) {
+            continue;
+        }
+
+        // If current number is greater than first maximum,
+        // It means that this is the greatest number and first maximum and second max
+        // will become the next two greater numbers.
+        if (firstMax <= num) {
+            [thirdMax, secondMax, firstMax] = [secondMax, firstMax, num];
+        }
+        // When current number is greater than second maximum,
+        // it means that this is the second greatest number.
+        else if (secondMax <= num) {
+            [thirdMax, secondMax] = [secondMax, num];
+        }
+        // It is the third greatest number.
+        else if (thirdMax <= num) {
+            thirdMax = num;
+        }
+    }
+
+    // If third max was never updated, it means we don't have 3 distinct numbers.
+    if (thirdMax == Number.MIN_SAFE_INTEGER) {
+        return firstMax;
+    }
+
+    return thirdMax;
+};

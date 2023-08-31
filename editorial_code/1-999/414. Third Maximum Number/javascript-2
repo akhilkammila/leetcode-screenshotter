@@ -1,0 +1,44 @@
+let thirdMax = function(nums) {
+    // Sorted set to keep elements in sorted order.
+    let sortedNums = new Set();
+    
+    // Iterate on all elements of 'nums' array.
+    for (let index in nums) {
+        let num = nums[index];
+        
+        // Do not insert same element again.
+        if (sortedNums.has(num)) {
+            continue;
+        }
+
+        // If sorted set has 3 elements.
+        if (sortedNums.size == 3) {
+            let [firstElement] = sortedNums;
+            
+            // And the smallest element is smaller than current element.
+            if (firstElement < num) {
+                // Then remove the smallest element ans push the current element.
+                sortedNums.delete(firstElement);
+                sortedNums.add(num);
+            }
+
+        } 
+        // Otherwise push the current element of nums array.
+        else {
+            sortedNums.add(num);
+        }
+        
+        // Sort the set, it has at most 3 elements only.
+        sortedNums = new Set([...sortedNums].sort((a, b) => a - b));
+    }
+
+    // If sorted set has three elements return the smallest among those 3.
+    if (sortedNums.size == 3) {
+        let [firstElement] = sortedNums;
+        return firstElement;
+    }
+
+    // Otherwise return the biggest element of nums array.
+    let lastElement = Array.from(sortedNums).pop();
+    return lastElement;
+};

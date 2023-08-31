@@ -1,0 +1,13 @@
+int findNumbers(int* nums, int numsSize) {
+    // Counter to count the number of even digit integers
+    int evenDigitCount = 0;
+
+    for (int i = 0; i < numsSize; i++) {
+        // Compute the number of digits in the num
+        int digitCount = (int) floor(log10(nums[i])) + 1;
+        if (digitCount % 2 == 0)
+            evenDigitCount++;
+    }
+
+    return evenDigitCount;
+}

@@ -1,0 +1,41 @@
+public class Solution {
+    public string PredictPartyVictory(string senate) {
+        
+        // Number of Senator
+        int n = senate.Length;
+
+        // Queues with Senator's Index.
+        // Index will be used to find the next turn of Senator
+        Queue<int> rQueue = new Queue<int>();
+        Queue<int> dQueue = new Queue<int>();
+
+        // Populate the Queues
+        for (int i = 0; i < n; i++) {
+            if (senate[i] == 'R') {
+                rQueue.Enqueue(i);
+            } else {
+                dQueue.Enqueue(i);
+            }
+        }
+
+        // While both parties have at least one Senator
+        while (rQueue.Count > 0 && dQueue.Count > 0) {
+            
+            // Pop the Next-Turn Senate from both Q.
+            int rTurn = rQueue.Dequeue();
+            int dTurn = dQueue.Dequeue();
+
+            // ONE having a larger index will be banned by a lower index
+            // Lower index will again get Turn, so EN-Queue again
+            // But ensure its turn comes in the next round only
+            if (dTurn < rTurn) {
+                dQueue.Enqueue(dTurn + n);
+            } else {
+                rQueue.Enqueue(rTurn + n);
+            }
+        }
+
+        // One's which Empty is not winner
+        return rQueue.Count == 0 ? "Dire" : "Radiant";
+    }
+}

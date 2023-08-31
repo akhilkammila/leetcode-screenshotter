@@ -1,0 +1,57 @@
+class Solution {
+    String predictPartyVictory(String senate) {
+        
+        // Number of Senators of each party
+        int rCount = 0;
+        int dCount = 0;
+
+        // Floating Ban Count
+        int dFloatingBan = 0;
+        int rFloatingBan = 0;
+
+        // Queue of Senators. 
+        List<String> q = [];
+        for (int i = 0; i < senate.length; i++) {
+            q.add(senate[i]);
+            if (senate[i] == 'R') {
+                rCount += 1;
+            } else {
+                dCount += 1;
+            }
+        }
+
+        // While any party has eligible Senators
+        while (rCount > 0 && dCount > 0) {
+
+            // Pop the senator with turn
+            String curr = q.removeAt(0);
+
+            // If eligible, float the ban on the other party, enqueue again.
+            // If not, decrement the floating ban and count of the party.
+            if (curr == 'D') {
+                if (dFloatingBan > 0) {
+                    dFloatingBan -= 1;
+                    dCount -= 1;
+                } else {
+                    rFloatingBan += 1;
+                    q.add('D');
+                }
+            } else {
+                if (rFloatingBan > 0) {
+                    rFloatingBan -= 1;
+                    rCount -= 1;
+                } else {
+                    dFloatingBan += 1;
+                    q.add('R');
+                }
+            }
+        }
+
+        // Return the party with eligible Senators
+        if (rCount > 0) {
+            return "Radiant";
+        } else {
+            return "Dire";
+        }
+    }
+}

@@ -1,0 +1,57 @@
+impl Solution {
+    pub fn predict_party_victory(senate: String) -> String {
+        
+        // Number of Senators of each party
+        let mut r_count = 0;
+        let mut d_count = 0;
+
+        // Floating Ban Count
+        let mut d_floating_ban = 0;
+        let mut r_floating_ban = 0;
+
+        // Queue of Senators
+        let mut q = Vec::new();
+        for c in senate.chars() {
+            q.push(c);
+            if c == 'R' {
+                r_count += 1;
+            } else {
+                d_count += 1;
+            }
+        }
+
+        // While any party has eligible Senators
+        while r_count > 0 && d_count > 0 {
+
+            // Pop the senator with turn
+            let curr = q.remove(0);
+
+            // If eligible, float the ban on the other party, enqueue again.
+            // If not, decrement the floating ban and count of the party.
+            if curr == 'D' {
+                if d_floating_ban > 0 {
+                    d_floating_ban -= 1;
+                    d_count -= 1;
+                } else {
+                    r_floating_ban += 1;
+                    q.push('D');
+                }
+            } else {
+                if r_floating_ban > 0 {
+                    r_floating_ban -= 1;
+                    r_count -= 1;
+                } else {
+                    d_floating_ban += 1;
+                    q.push('R');
+                }
+            }
+        }
+
+        // Return the party with eligible Senators
+        if r_count > 0 {
+            return "Radiant".to_string();
+        } else {
+            return "Dire".to_string();
+        }
+    }
+}

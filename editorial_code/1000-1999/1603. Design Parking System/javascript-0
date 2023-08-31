@@ -1,0 +1,16 @@
+var ParkingSystem = function(big, medium, small) {
+    // Number of empty slots for each type of car
+    this.empty = [big, medium, small];
+};
+
+ParkingSystem.prototype.addCar = function(carType) {
+
+    // If space is available, allocate and return True
+    if (this.empty[carType - 1] > 0) {
+        this.empty[carType - 1]--;
+        return true;
+    }
+
+    // Else, return False
+    return false;
+};

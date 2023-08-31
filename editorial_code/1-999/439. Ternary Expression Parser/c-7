@@ -1,0 +1,28 @@
+char * parseTernary(char * expression){
+    
+    int i = 0;
+    for ( ; i < strlen(expression); ) {
+        
+        if (expression[i] != 'T' && expression[i] != 'F'
+        || i == strlen(expression) - 1 || expression[i + 1] == ':') {
+            break;
+        }
+        if (expression[i] == 'T') {
+            i += 2;
+        } else {
+            int count;
+            for (count = 1, i += 2; count != 0; i++) {
+                if (expression[i] == ':') {
+                    count--;
+                } else if (expression[i] == '?') {
+                    count++;
+                }
+            }
+        }
+    }
+
+    char *result = malloc(2);
+    result[0] = expression[i];
+    result[1] = '\0';
+    return result;
+}

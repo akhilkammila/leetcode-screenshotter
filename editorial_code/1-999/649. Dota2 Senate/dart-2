@@ -1,0 +1,64 @@
+class Solution {
+    String predictPartyVictory(String senate) {
+
+        // Number of Senators
+        int n = senate.length;
+
+        // To mark Banned Senators
+        // As per Dart
+        List<bool> banned = List.filled(n, false);
+
+        // List of indices of Eligible Radiant and Dire Senators
+        List<int> rIndices = [];
+        List<int> dIndices = [];
+        for (int i = 0; i < n; i++) {
+            if (senate[i] == 'R') {
+                rIndices.add(i);
+            } else {
+                dIndices.add(i);
+            }
+        }
+
+        // Ban the senator of "indices" immediate next to "startAt"
+        void ban(List<int> indices, int startAt) {
+            // Find the index of "index of senator to ban" using Binary Search
+            int temp = indices.indexWhere((x) => x >= startAt);
+
+            // If startAt is more than the last index,
+            // then start from the beginning. Ban the first senator
+            if (temp == -1) {
+                banned[indices[0]] = true;
+                indices.removeAt(0);
+            }
+
+            // Else, Ban the senator at the index
+            else {
+                banned[indices[temp]] = true;
+                indices.removeAt(temp);
+            }
+        }
+
+        // Turn of Senator at this Index
+        int turn = 0;
+
+        // While both parties have at least one senator
+        while (rIndices.isNotEmpty && dIndices.isNotEmpty) {
+            if (!banned[turn]) {
+                if (senate[turn] == 'R') {
+                    ban(dIndices, turn);
+                } else {
+                    ban(rIndices, turn);
+                }
+            }
+
+            turn = (turn + 1) % n;
+        }
+
+        // Return the party with at least one senator
+        if (dIndices.isEmpty) {
+            return "Radiant";
+        } else {
+            return "Dire";
+        }
+    }
+}

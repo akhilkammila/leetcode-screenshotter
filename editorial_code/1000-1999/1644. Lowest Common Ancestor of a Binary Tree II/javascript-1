@@ -1,0 +1,30 @@
+var lowestCommonAncestor = function(root, p, q) {
+    function dfs(node, target) {
+        if (node === target)
+            return true;
+        if (node === null)
+            return false;
+        return dfs(node.left, target) || dfs(node.right, target);
+    }
+
+    function LCA(node, p, q) {
+        if (node === null || node === p || node === q)
+            return node;
+        let left = LCA(node.left, p, q);
+        let right = LCA(node.right, p, q);
+        if (left && right)
+            return node;
+        else if (left)
+            return left;
+        else
+            return right
+    }
+
+    let ans = LCA(root, p, q);
+    if (ans === p) // check if q is in the subtree of p
+        return dfs(p, q) ? p : null;
+    else if (ans === q) // check if p is in the subtree of q
+        return dfs(q, p) ? q : null;
+    else
+        return ans;
+};

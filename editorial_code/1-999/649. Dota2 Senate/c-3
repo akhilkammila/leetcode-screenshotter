@@ -1,0 +1,48 @@
+char * predictPartyVictory(char * senate){
+    
+    // Number of Senator
+    int n = strlen(senate);
+
+    // Queues with Senator's Index.
+    // Index will be used to find the next turn of Senator
+    // Using Circular Array to simulate Queue
+    int rQueue[n];
+    int dQueue[n];
+
+    // Front and Rear of the Queues
+    int rFront = 0, rRear = 0;
+    int dFront = 0, dRear = 0;
+
+    // Populate the Queues
+    for (int i = 0; i < n; i++) {
+        if (senate[i] == 'R') {
+            rQueue[rRear++] = i;
+        } else {
+            dQueue[dRear++] = i;
+        }
+    }
+
+    // While both parties have at least one Senator. 
+    while (rFront != rRear && dFront != dRear) {
+        
+        // Pop the Next-Turn Senate from both Q.
+        int rTurn = rQueue[rFront];
+        rFront = (rFront + 1) % n;
+        int dTurn = dQueue[dFront];
+        dFront = (dFront + 1) % n;
+
+        // ONE having a larger index will be banned by a lower index
+        // Lower index will again get Turn, so EN-Queue again
+        // But ensure its turn comes in the next round only
+        if (dTurn < rTurn) {
+            dQueue[dRear] = dTurn + n;
+            dRear = (dRear + 1) % n;
+        } else {
+            rQueue[rRear] = rTurn + n;
+            rRear = (rRear + 1) % n;
+        }
+    }
+
+    // One's which Empty is not winner
+    return rFront == rRear ? "Dire" : "Radiant";
+}

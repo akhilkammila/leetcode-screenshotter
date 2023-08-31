@@ -1,0 +1,56 @@
+class TrieNode {
+  val links: Array[TrieNode] = Array.fill(26)(null)
+  var wordsEndingHere: Int = 0
+  var wordsStartingHere: Int = 0
+}
+
+class Trie {
+  val root: TrieNode = new TrieNode()
+
+  def insert(word: String): Unit = {
+    var node = root
+    for (w <- word) {
+      val charIndex = w - 'a'
+      if (node.links(charIndex) == null) {
+        node.links(charIndex) = new TrieNode()
+      }
+      node = node.links(charIndex)
+      node.wordsStartingHere += 1
+    }
+    node.wordsEndingHere += 1
+  }
+
+  def countWordsEqualTo(word: String): Int = {
+    var node = root
+    for (w <- word) {
+      val charIndex = w - 'a'
+      if (node.links(charIndex) == null) {
+        return 0
+      }
+      node = node.links(charIndex)
+    }
+    node.wordsEndingHere
+  }
+
+  def countWordsStartingWith(prefix: String): Int = {
+    var node = root
+    for (w <- prefix) {
+      val charIndex = w - 'a'
+      if (node.links(charIndex) == null) {
+        return 0
+      }
+      node = node.links(charIndex)
+    }
+    node.wordsStartingHere
+  }
+
+  def erase(word: String): Unit = {
+    var node = root
+    for (w <- word) {
+      val charIndex = w - 'a'
+      node = node.links(charIndex)
+      node.wordsStartingHere -= 1
+    }
+    node.wordsEndingHere -= 1
+  }
+}

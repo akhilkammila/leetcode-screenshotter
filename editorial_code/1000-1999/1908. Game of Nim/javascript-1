@@ -1,0 +1,7 @@
+function nimGame(piles) {
+    let nimSum = 0;
+    for (let p of piles) {
+        nimSum ^= p;
+    }
+    return nimSum != 0;
+}

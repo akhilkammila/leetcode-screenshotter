@@ -1,0 +1,10 @@
+var sortTransformedArray = function(nums, a, b, c) {
+    let answer = [];
+    nums.forEach(num => {
+        // Push transformed value in the 'answer' array.
+        answer.push((a * num * num) + (b * num) + c);
+    });
+    // Sort the array of transformed values.
+    answer.sort((num1, num2) => num1 - num2);
+    return answer;
+};

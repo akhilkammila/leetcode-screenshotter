@@ -1,0 +1,39 @@
+// Return the transformed result for element 'x'
+let transform = (x, a, b, c) => (a * x * x) + (b * x) + c;
+    
+let sortTransformedArray = function(nums, a, b, c) {
+    let answer = [];
+    let left = 0, right = nums.length - 1;
+        
+    if (a < 0) {
+        // When 'downward parabola' we will put the edge element (smaller elements) first.
+        while (left <= right) {
+            const leftTransformedVal = transform(nums[left], a, b, c);
+            const rightTransformedVal = transform(nums[right], a, b, c);
+            if (leftTransformedVal < rightTransformedVal) {
+                answer.push(leftTransformedVal);
+                left++;
+            } else {
+                answer.push(rightTransformedVal);
+                right--;
+            }
+        }
+    } else {
+        while (left <= right) {
+            // When 'upward parabola' or a 'straight line' 
+            // we will put the edge element (bigger elements) first.
+            const leftTransformedVal = transform(nums[left], a, b, c);
+            const rightTransformedVal = transform(nums[right], a, b, c);
+            if (leftTransformedVal > rightTransformedVal) {
+                answer.push(leftTransformedVal);
+                left++;
+            } else {
+                answer.push(rightTransformedVal);
+                right--;
+            }
+        }
+        // Reverse the decreasing 'answer' array.
+        answer.reverse();
+    }
+    return answer;
+};

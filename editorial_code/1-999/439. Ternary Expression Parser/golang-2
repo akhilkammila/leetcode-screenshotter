@@ -1,0 +1,41 @@
+func parseTernary(expression string) string {
+    
+    // Initialize a stack
+    stack := []rune{}
+    i := len(expression) - 1
+
+    // Traverse the expression from right to left
+    for i >= 0 {
+
+        // Current character
+        curr := rune(expression[i])
+        
+        // Push every T, F, and digit on the stack
+        if curr >= '0' && curr <= '9' || curr == 'T' || curr == 'F' {
+            stack = append(stack, curr)
+        }
+        
+        // As soon as we encounter ?, 
+        // replace top two elements of the stack with one
+        if curr == '?' {
+            onTrue := stack[len(stack) - 1]
+            onFalse := stack[len(stack) - 2]
+            stack = stack[:len(stack) - 2]
+            if expression[i - 1] == 'T' {
+                stack = append(stack, onTrue)
+            } else {
+                stack = append(stack, onFalse)
+            }
+            
+            // Decrement i by 1 as we have already used
+            // Previous Boolean character
+            i -= 1
+        }
+        
+        // Go to the previous character
+        i -= 1
+    }
+    
+    // Return the final character
+    return string(stack[len(stack) - 1])
+}

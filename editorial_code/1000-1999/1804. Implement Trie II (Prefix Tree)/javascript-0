@@ -1,0 +1,58 @@
+class TrieNode {
+    constructor() {
+        this.links = new Array(26).fill(null);
+        this.wordsEndingHere = 0;
+        this.wordsStartingHere = 0;
+    }
+}
+
+var Trie = function() {
+    this.root = new TrieNode();
+};
+
+Trie.prototype.insert = function(word) {
+    let node = this.root;
+    for (let w of word) {
+        const charIndex = w.charCodeAt(0) - 'a'.charCodeAt(0);
+        if (!node.links[charIndex]) {
+            node.links[charIndex] = new TrieNode();
+        }
+        node = node.links[charIndex];
+        node.wordsStartingHere++;
+    }
+    node.wordsEndingHere++;
+};
+
+Trie.prototype.countWordsEqualTo = function(word) {
+    let node = this.root;
+    for (let w of word) {
+        const charIndex = w.charCodeAt(0) - 'a'.charCodeAt(0);
+        if (!node.links[charIndex]) {
+            return 0;
+        }
+        node = node.links[charIndex];
+    }
+    return node.wordsEndingHere;
+};
+
+Trie.prototype.countWordsStartingWith = function(prefix) {
+    let node = this.root;
+    for (let w of prefix) {
+        const charIndex = w.charCodeAt(0) - 'a'.charCodeAt(0);
+        if (!node.links[charIndex]) {
+            return 0;
+        }
+        node = node.links[charIndex];
+    }
+    return node.wordsStartingHere;
+};
+
+Trie.prototype.erase = function(word) {
+    let node = this.root;
+    for (let w of word) {
+        const charIndex = w.charCodeAt(0) - 'a'.charCodeAt(0);
+        node = node.links[charIndex];
+        node.wordsStartingHere--;
+    }
+    node.wordsEndingHere--;
+};

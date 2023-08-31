@@ -1,0 +1,22 @@
+var nthMagicalNumber = function(N, A, B) {
+    gcd = (x, y) => {
+        if (x == 0) return y;
+        return gcd(y % x, x);
+    }
+
+    const MOD = 1000000007;
+    const L = A / gcd(A, B) * B;
+
+    let lo = 0;
+    let hi = N * Math.min(A, B);
+    while (lo < hi) {
+        let mi = lo + Math.trunc((hi - lo) / 2);
+        // If there are not enough magic numbers below mi...
+        if (Math.trunc(mi/A) + Math.trunc(mi/B) - Math.trunc(mi/L) < N)
+            lo = mi + 1;
+        else
+            hi = mi;
+    }
+
+    return lo % MOD;
+};

@@ -1,0 +1,45 @@
+class Solution {
+    fun predictPartyVictory(senate: String): String {
+        
+        // Number of Senator
+        val n = senate.length
+
+        // Queues with Senator's Index.
+        // Index will be used to find the next turn of Senator
+        val rQueue = ArrayDeque<Int>()
+        val dQueue = ArrayDeque<Int>()
+
+        // Populate the Queues
+        for (i in 0 until n) {
+            if (senate[i] == 'R') {
+                rQueue.add(i)
+            } else {
+                dQueue.add(i)
+            }
+        }
+
+        // While both parties have at least one Senator
+        while (rQueue.isNotEmpty() && dQueue.isNotEmpty()) {
+            
+            // Pop the Next-Turn Senate from both Q.
+            val rTurn = rQueue.removeFirst()
+            val dTurn = dQueue.removeFirst()
+
+            // ONE having a larger index will be banned by a lower index
+            // Lower index will again get Turn, so EN-Queue again
+            // But ensure its turn comes in the next round only
+            if (dTurn < rTurn) {
+                dQueue.add(dTurn + n)
+            } else {
+                rQueue.add(rTurn + n)
+            }
+        }
+
+        // One's which Empty is not winner
+        return if (rQueue.isEmpty()) {
+            "Dire"
+        } else {
+            "Radiant"
+        }
+    }
+}

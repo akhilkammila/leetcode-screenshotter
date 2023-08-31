@@ -1,0 +1,50 @@
+class Solution {
+
+    /**
+     * @param String $senate
+     * @return String
+     */
+    function predictPartyVictory($senate) {
+        
+        // Number of Senator
+        $n = strlen($senate);
+
+        // Queues with Senator's Index.
+        // Index will be used to find the next turn of Senator
+        $rQueue = new SplQueue();
+        $dQueue = new SplQueue();
+
+        // Populate the Queues
+        for ($i = 0; $i < $n; $i++) {
+            if ($senate[$i] == 'R') {
+                $rQueue->enqueue($i);
+            } else {
+                $dQueue->enqueue($i);
+            }
+        }
+
+        // While both parties have at least one Senator
+        while (!$rQueue->isEmpty() && !$dQueue->isEmpty()) {
+            
+            // Pop the Next-Turn Senate from both Q.
+            $rTurn = $rQueue->dequeue();
+            $dTurn = $dQueue->dequeue();
+
+            // ONE having a larger index will be banned by a lower index
+            // Lower index will again get Turn, so EN-Queue again
+            // But ensure its turn comes in the next round only
+            if ($dTurn < $rTurn) {
+                $dQueue->enqueue($dTurn + $n);
+            } else {
+                $rQueue->enqueue($rTurn + $n);
+            }
+        }
+
+        // One's which Empty is not winner
+        if ($rQueue->isEmpty()) {
+            return "Dire";
+        } else {
+            return "Radiant";
+        }
+    }
+}

@@ -1,0 +1,45 @@
+var buddyStrings = function(s, goal) {
+    if (s.length !== goal.length) {
+        return false;
+    }
+
+    if (s === goal) {
+        // If we have 2 same characters in string 's',
+        // we can swap them and still the strings will remain equal.
+        const frequency = Array(26).fill(0);
+        for (const ch of s) {
+            frequency[ch.charCodeAt() - 'a'.charCodeAt()] += 1;
+            if (frequency[ch.charCodeAt() - 'a'.charCodeAt()] === 2) {
+                return true;
+            }
+        }
+        // Otherwise, if we swap any two characters, it will make the strings unequal.
+        return false;
+    }
+
+    let firstIndex = -1;
+    let secondIndex = -1;
+
+    for (let i = 0; i < s.length; ++i) {
+        if (s[i] !== goal[i]) {
+            if (firstIndex === -1) {
+                firstIndex = i;
+            } else if (secondIndex === -1) {
+                secondIndex = i;
+            } else {
+                // We have at least 3 indices with different characters,
+                // thus, we can never make the strings equal with only one swap.
+                return false;
+            }
+        }
+    }
+
+    if (secondIndex === -1) {
+        // We can't swap if the character at only one index is different.
+        return false;
+    }
+
+    // All characters of both strings are the same except two indices.
+    return (s[firstIndex] === goal[secondIndex] && 
+            s[secondIndex] === goal[firstIndex]);    
+};

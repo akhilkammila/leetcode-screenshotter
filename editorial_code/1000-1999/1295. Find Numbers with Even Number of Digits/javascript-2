@@ -1,0 +1,17 @@
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var findNumbers = function(nums) {
+    // Counter to count the number of even digit integers
+    let evenDigitCount = 0;
+
+    for (let num of nums) {
+        // Compute the number of digits in the num
+        let digitCount = Math.floor(Math.log10(num)) + 1;
+        if (digitCount % 2 == 0)
+            evenDigitCount++;
+    }
+
+    return evenDigitCount;
+};

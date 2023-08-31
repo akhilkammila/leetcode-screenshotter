@@ -1,0 +1,36 @@
+let sumFreq = {};
+let maxFreq = 0;
+
+let subtreeSum = (root) => {
+    if (!root) {
+        return 0;
+    }
+
+    // Get left and right subtree's sum.
+    let leftSubtreeSum = subtreeSum(root.left);
+    let rightSubtreeSum = subtreeSum(root.right);
+
+    // Use child's tree's sums to get current root's tree's sum
+    let currSum = root.val + leftSubtreeSum + rightSubtreeSum;
+    
+    sumFreq[currSum] = (sumFreq[currSum] ?? 0) + 1;
+    maxFreq = Math.max(maxFreq, sumFreq[currSum]);
+    return currSum;
+}
+
+let findFrequentTreeSum = function(root) {
+    sumFreq = {};
+    maxFreq = 0;
+    
+    // Traverse on all nodes one by one, and find it's tree's sum.
+    subtreeSum(root);
+    
+    let maxFreqSums = [];
+    for (let sum in sumFreq) {
+        if (sumFreq[sum] == maxFreq) {
+            maxFreqSums.push(sum);
+        }
+    }
+
+    return maxFreqSums;
+};

@@ -1,0 +1,20 @@
+type ParkingSystem struct {
+    // Number of empty slots for each type of car
+    empty []int
+}
+
+func Constructor(big int, medium int, small int) ParkingSystem {
+    return ParkingSystem{empty: []int{big, medium, small}}
+}
+
+func (this *ParkingSystem) AddCar(carType int) bool {
+
+    // If space is available, allocate and return True
+    if this.empty[carType - 1] > 0 {
+        this.empty[carType - 1]--
+        return true
+    }
+
+    // Else, return False
+    return false
+}

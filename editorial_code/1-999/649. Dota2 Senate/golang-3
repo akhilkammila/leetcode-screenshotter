@@ -1,0 +1,45 @@
+func predictPartyVictory(senate string) string {
+    
+    // Number of Senator
+    n := len(senate)
+
+    // Queues with Senator's Index.
+    // Index will be used to find the next turn of Senator
+    rQueue := []int{}
+    dQueue := []int{}
+
+    // Populate the Queues
+    for i := 0; i < n; i++ {
+        if senate[i] == 'R' {
+            rQueue = append(rQueue, i)
+        } else {
+            dQueue = append(dQueue, i)
+        }
+    }
+
+    // While both parties have at least one Senator
+    for len(rQueue) > 0 && len(dQueue) > 0 {
+        
+        // Pop the Next-Turn Senate from both Q.
+        rTurn := rQueue[0]
+        rQueue = rQueue[1:]
+        dTurn := dQueue[0]
+        dQueue = dQueue[1:]
+
+        // ONE having a larger index will be banned by a lower index
+        // Lower index will again get Turn, so EN-Queue again
+        // But ensure its turn comes in the next round only
+        if dTurn < rTurn {
+            dQueue = append(dQueue, dTurn + n)
+        } else {
+            rQueue = append(rQueue, rTurn + n)
+        }
+    }
+
+    // One's which Empty is not winner
+    if len(rQueue) == 0 {
+        return "Dire"
+    } else {
+        return "Radiant"
+    }
+}

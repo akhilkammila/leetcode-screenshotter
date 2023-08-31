@@ -1,0 +1,57 @@
+object Solution {
+    def predictPartyVictory(senate: String): String = {
+        
+        // Number of Senators of each party
+        var rCount = 0
+        var dCount = 0
+
+        // Floating Ban Count
+        var dFloatingBan = 0
+        var rFloatingBan = 0
+
+        // Queue of Senators
+        var q = scala.collection.mutable.Queue[Char]()
+        for (c <- senate) {
+            q.enqueue(c)
+            if (c == 'R') {
+                rCount += 1
+            } else {
+                dCount += 1
+            }
+        }
+
+        // While any party has eligible Senators
+        while (rCount > 0 && dCount > 0) {
+
+            // Pop the senator with turn
+            val curr = q.dequeue()
+
+            // If eligible, float the ban on the other party, enqueue again.
+            // If not, decrement the floating ban and count of the party.
+            if (curr == 'D') {
+                if (dFloatingBan > 0) {
+                    dFloatingBan -= 1
+                    dCount -= 1
+                } else {
+                    rFloatingBan += 1
+                    q.enqueue('D')
+                }
+            } else {
+                if (rFloatingBan > 0) {
+                    rFloatingBan -= 1
+                    rCount -= 1
+                } else {
+                    dFloatingBan += 1
+                    q.enqueue('R')
+                }
+            }
+        }
+
+        // Return the party with eligible Senators
+        if (rCount > 0) {
+            return "Radiant"
+        } else {
+            return "Dire"
+        }
+    }
+}

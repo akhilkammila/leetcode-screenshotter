@@ -1,0 +1,18 @@
+int max(int a, int b) { return a > b ? a : b; }
+
+int maximumScore(int *nums, int numsSize, int *multipliers, int multipliersSize) {
+    // For Right Pointer
+    int n = numsSize;
+    // Number of Operations
+    int m = multipliersSize;
+    int dp[m + 1];
+    for (int i = 0; i <= m; i++) dp[i] = 0;
+    
+    for (int op = m - 1; op >= 0; op--) {
+        for (int left = 0; left <= op; left++) {
+            dp[left] = max(multipliers[op] * nums[left] + dp[left + 1],
+                           multipliers[op] * nums[n - 1 - (op - left)] + dp[left]);
+        }
+    }
+    return dp[0];
+}

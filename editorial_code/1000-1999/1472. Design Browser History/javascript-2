@@ -1,0 +1,31 @@
+var BrowserHistory = function(homepage) {
+    // 'homepage' is the first visited URL.
+    this.visitedURLs = [homepage]
+    this.currURL = 0; 
+    this.lastURL = 0;
+};
+
+BrowserHistory.prototype.visit = function(url) {
+    this.currURL += 1;
+    if (this.visitedURLs.length > this.currURL) {
+        // We have enough space in our array to overwrite an old 'url' entry with new one.
+        this.visitedURLs[this.currURL] = url;
+    } else {
+        // We have to insert a new 'url' entry at the end.
+        this.visitedURLs.push(url);
+    }
+    // This 'url' will be last URL if we try to go forward.
+    this.lastURL = this.currURL;
+};
+
+BrowserHistory.prototype.back = function(steps) {
+    // Move 'currURL' pointer in left direction.
+    this.currURL = Math.max(0, this.currURL - steps);
+    return this.visitedURLs[this.currURL];
+};
+
+BrowserHistory.prototype.forward = function(steps) {
+    // Move 'currURL' pointer in right direction.
+    this.currURL = Math.min(this.lastURL, this.currURL + steps);
+    return this.visitedURLs[this.currURL];
+};

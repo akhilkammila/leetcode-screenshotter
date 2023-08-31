@@ -1,0 +1,18 @@
+class Solution {
+    public int GetIndex(ArrayReader reader) {
+        int left = 0;
+        int length = reader.Length(); 
+        while (length > 1) {
+            length /= 2;
+            int cmp = reader.CompareSub(left, left + length - 1, left + length, left + length + length - 1);
+            if (cmp == 0) {
+                return left + length + length;
+            }
+            if (cmp < 0) {
+                left += length;
+            }
+        }
+        return left;
+        
+    }
+}

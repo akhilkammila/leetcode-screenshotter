@@ -1,0 +1,45 @@
+impl Solution {
+    pub fn predict_party_victory(senate: String) -> String {
+        
+        // Number of Senator
+        let n = senate.len();
+
+        // Queues with Senator's Index.
+        // Index will be used to find the next turn of Senator.
+        let mut rQueue = std::collections::VecDeque::new();
+        let mut dQueue = std::collections::VecDeque::new();
+
+        // Populate the Queues
+        for i in 0..n {
+            if senate.chars().nth(i).unwrap() == 'R' {
+                rQueue.push_back(i);
+            } else {
+                dQueue.push_back(i);
+            }
+        }
+
+        // While both parties have at least one Senator
+        while !rQueue.is_empty() && !dQueue.is_empty() {
+            
+            // Pop the Next-Turn Senate from both Q.
+            let rTurn = rQueue.pop_front().unwrap();
+            let dTurn = dQueue.pop_front().unwrap();
+
+            // ONE having a larger index will be banned by a lower index
+            // Lower index will again get Turn, so EN-Queue again
+            // But ensure its turn comes in the next round only
+            if dTurn < rTurn {
+                dQueue.push_back(dTurn + n);
+            } else {
+                rQueue.push_back(rTurn + n);
+            }
+        }
+        
+        // One's which Empty is not winner
+        if rQueue.is_empty() {
+            return "Dire".to_string();
+        } else {
+            return "Radiant".to_string();
+        }
+    }
+}

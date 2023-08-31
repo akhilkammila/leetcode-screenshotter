@@ -1,0 +1,34 @@
+
+let sumSubarrayMins = function (arr) {
+    const MOD = 1000000007;
+    // monotonic increasing stack
+    let stack = [];
+    // make a dp array of the same size as the input array `arr`
+    let dp = new Array(arr.length).fill(0);
+
+    // Making a monotonic increasing stack
+    for (let i = 0; i < arr.length; i++) {
+        // pop the stack until it is empty or
+        // the top of the stack is greater than or equal to
+        // the current element
+        while (stack.length && arr[stack.at(-1)] >= arr[i]) {
+            stack.pop();
+        }
+
+        // two cases, either the previousSmaller element exists
+        if (stack.length) {
+            const previousSmaller = stack.at(-1);
+            dp[i] = dp[previousSmaller] + (i - previousSmaller) * arr[i];
+        } else {
+            // or it doesn't exist
+            dp[i] = (i + 1) * arr[i];
+        }
+        stack.push(i);
+    }
+
+    // Add all elements of the dp to get the answer
+    const sumOfMinimums = dp.reduce((a, b) => a + b, 0);
+
+    return sumOfMinimums % MOD;
+};
+

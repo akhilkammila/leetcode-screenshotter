@@ -1,0 +1,45 @@
+object Solution {
+    def predictPartyVictory(senate: String): String = {
+        
+        // Number of Senator
+        val n = senate.length
+
+        // Queues with Senator's Index.
+        // Index will be used to find the next turn of Senator
+        val rQueue = scala.collection.mutable.Queue[Int]()
+        val dQueue = scala.collection.mutable.Queue[Int]()
+
+        // Populate the Queues
+        for (i <- 0 until n) {
+            if (senate(i) == 'R') {
+                rQueue.enqueue(i)
+            } else {
+                dQueue.enqueue(i)
+            }
+        }
+
+        // While both parties have at least one Senator
+        while (rQueue.nonEmpty && dQueue.nonEmpty) {
+            
+            // Pop the Next-Turn Senate from both Q.
+            val rTurn = rQueue.dequeue()
+            val dTurn = dQueue.dequeue()
+
+            // ONE having a larger index will be banned by a lower index
+            // Lower index will again get Turn, so EN-Queue again
+            // But ensure its turn comes in the next round only
+            if (dTurn < rTurn) {
+                dQueue.enqueue(dTurn + n)
+            } else {
+                rQueue.enqueue(rTurn + n)
+            }
+        }
+
+        // One's which Empty is not winner
+        if (rQueue.isEmpty) {
+            return "Dire"
+        } else {
+            return "Radiant"
+        }
+    }
+}

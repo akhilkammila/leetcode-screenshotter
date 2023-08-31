@@ -1,0 +1,19 @@
+let findBuildings = function(heights) {
+    let n = heights.length;
+    let answer = [];
+    let maxHeight = -1; 
+    
+    for (let current = n - 1; current >= 0; --current) {
+        
+        // If there is no building higher (or equal) than the current one to its right,
+        // push it in the answer array.
+        if (maxHeight < heights[current]) {
+            answer.push(current);
+            
+            // Update max building till now.
+            maxHeight = heights[current];
+        }
+    }
+    answer.reverse();
+    return answer;
+};

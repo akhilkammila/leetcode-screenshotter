@@ -1,0 +1,29 @@
+object Solution {
+    def parseTernary(expression: String): String = {
+        
+        var i = 0
+        while (i < expression.length) {
+            
+            if (expression(i) != 'T' && expression(i) != 'F'
+            || i == expression.length - 1 || expression(i + 1) == ':') {
+                return expression(i).toString
+            }
+            if (expression(i) == 'T') {
+                i += 2
+            } else {
+                var count = 1
+                i += 2
+                while (count != 0) {
+                    if (expression(i) == ':') {
+                        count -= 1
+                    } else if (expression(i) == '?') {
+                        count += 1
+                    }
+                    i += 1
+                }
+            }
+        }
+
+        return expression(i).toString
+    }
+}

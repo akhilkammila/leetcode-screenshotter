@@ -1,0 +1,46 @@
+object Solution {
+  def predictPartyVictory(senate: String): String = {
+
+    // Count of Each Type of Senator to check for Winner
+    var rCount = senate.count(_ == 'R')
+    var dCount = senate.length - rCount
+
+    // To mark Banned Senators
+    val banned = Array.fill(senate.length)(false)
+
+    // Ban the candidate "toBan", immediate next to "startAt"
+    def ban(toBan: Char, startAt: Int): Unit = {
+      // Find the next eligible senator of "toBan" type
+      // On found, mark him as banned
+      var i = startAt
+      while (true) {
+        if (senate(i) == toBan && !banned(i)) {
+          banned(i) = true
+          return
+        }
+        i = (i + 1) % senate.length
+      }
+    }
+
+    // Turn of Senator at this Index
+    var turn = 0
+
+    // While both parties have at least one senator
+    while (rCount > 0 && dCount > 0) {
+
+      if (!banned(turn)) {
+        if (senate(turn) == 'R') {
+          ban('D', (turn + 1) % senate.length)
+          dCount -= 1
+        } else {
+          ban('R', (turn + 1) % senate.length)
+          rCount -= 1
+        }
+      }
+
+      turn = (turn + 1) % senate.length
+    }
+
+    if (dCount == 0) "Radiant" else "Dire"
+  }
+}

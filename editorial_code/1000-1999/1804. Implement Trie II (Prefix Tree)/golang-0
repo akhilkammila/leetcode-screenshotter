@@ -1,0 +1,62 @@
+type TrieNode struct {
+	links             [26]*TrieNode
+	wordsEndingHere   int
+	wordsStartingHere int
+}
+
+type Trie struct {
+	root *TrieNode
+}
+
+func Constructor() Trie {
+	return Trie{
+		root: &TrieNode{},
+	}
+}
+
+func (this *Trie) Insert(word string) {
+	node := this.root
+	for _, w := range word {
+		charIndex := int(w - 'a')
+		if node.links[charIndex] == nil {
+			node.links[charIndex] = &TrieNode{}
+		}
+		node = node.links[charIndex]
+        node.wordsStartingHere++
+	}
+	node.wordsEndingHere++
+}
+
+func (this *Trie) CountWordsEqualTo(word string) int {
+	node := this.root
+	for _, w := range word {
+		charIndex := int(w - 'a')
+		if node.links[charIndex] == nil {
+			return 0
+		}
+		node = node.links[charIndex]
+	}
+	return node.wordsEndingHere
+}
+
+func (this *Trie) CountWordsStartingWith(prefix string) int {
+	node := this.root
+	for _, w := range prefix {
+		charIndex := int(w - 'a')
+		if node.links[charIndex] == nil {
+			return 0
+		}
+		node = node.links[charIndex]
+	}
+	return node.wordsStartingHere
+}
+
+func (this *Trie) Erase(word string) {
+	node := this.root
+	for _, w := range word {
+		charIndex := int(w - 'a')
+		node = node.links[charIndex]
+        node.wordsStartingHere--
+	}
+	node.wordsEndingHere--
+}

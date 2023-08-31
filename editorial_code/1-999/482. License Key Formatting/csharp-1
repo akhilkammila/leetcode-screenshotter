@@ -1,0 +1,50 @@
+public class Solution {
+    public string LicenseKeyFormatting(string s, int k) {
+        int totalChars = 0;
+        int i = 0;
+        while (i < s.Length) {
+            if (s[i] != '-') {
+                totalChars++;
+            }
+            i++;
+        }
+        int sizeOfFirstGroup = (totalChars % k);
+        if (sizeOfFirstGroup == 0) {
+            sizeOfFirstGroup = k;
+        }
+        string ans = "";
+        i = 0;
+        int count = 0;
+        
+        while (i < s.Length){
+            if (count == sizeOfFirstGroup) {
+                count = 0;
+                break;
+            }
+            if (s[i] != '-') {
+                count++;
+                ans += Char.ToUpper(s[i]);
+            }
+            i++;
+        }
+        /* This case will only appear if the value of k is greater than the total number 
+           of alphanumeric characters in string s */
+        if (i >= s.Length) {
+            return ans;
+        }
+        ans += '-';
+        while (i < s.Length) {
+            if (s[i] != '-') {
+                /* Whenever the count is equal to k, we put a '-' after each group*/
+                if (count == k) {
+                    ans += '-';
+                    count = 0;
+                }
+                ans += Char.ToUpper(s[i]);
+                count++;
+            }
+            i++;
+        }
+        return ans;
+    }
+}

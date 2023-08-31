@@ -1,0 +1,5 @@
+class Solution {
+    function bulbSwitch($n) {
+        return floor(sqrt($n));
+    }
+}

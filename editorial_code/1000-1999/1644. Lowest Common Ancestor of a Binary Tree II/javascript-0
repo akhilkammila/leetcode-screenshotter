@@ -1,0 +1,12 @@
+function LCA(node, p, q) {
+    if (node === null || node === p || node === q)
+        return node;
+    let left = LCA(node.left, p, q);
+    let right = LCA(node.right, p, q);
+    if (left && right)
+        return node;
+    else if (left)
+        return left;
+    else
+        return right
+}
