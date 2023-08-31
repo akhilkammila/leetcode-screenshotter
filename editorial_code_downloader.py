@@ -35,14 +35,24 @@ payload1="{\"query\":\"\\n    query officialSolution($titleSlug: String!) {\\n  
 
 def getExt(lang):
   if lang=='cpp':
-    return 'cpp'
+    return '.cpp'
   elif lang=='python3' or lang=='python':
-    return 'py'
+    return '.py'
   elif lang=='java':
-    return 'java'
+    return '.java'
+  elif lang=='.javascript':
+    return '.js'
+  elif lang=='typescript':
+    return '.ts'
+  elif lang=='swift':
+    return '.swift'
+  elif lang=='ruby':
+    return '.rb'
+  else:
+    return ''
 
 def getName(i, lang):
-  return lang+'-'+str(i)+'.'+getExt(lang)
+  return lang+'-'+str(i)+getExt(lang)
 
 
 
@@ -95,7 +105,7 @@ with open(PROBLEMS_CSV, 'r') as file:
         # print("payload")
         # print(payload)
         response = requests.request("POST", url, headers=headers, data=payload)
-        time.sleep(1)
+        # time.sleep(1)
         # print("codes")
         # print(response)
         # print(response.text)
